@@ -9,11 +9,12 @@ Rails.application.routes.draw do
   end
 
   #protected/authenticated routes
+  # a lot of these defy Rails convention because legacy design
   scope '/api' do
-    resources :lists do
-      resources :contentlists, only: [:index, :create, :update, :destroy]
+    get '/listview', to: 'lists#index' #index is the convention for "list all of <thing>"
+    get '/lists/:id', to: 'lists#show' #show is the convention for "show single <thing> by ID
   end
-    resources :users, only: [:show]
-    #... etc
-  end
+  resources :users, only: [:show]
+  #... etc
 end
+

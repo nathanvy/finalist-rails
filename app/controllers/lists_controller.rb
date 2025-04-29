@@ -3,13 +3,18 @@ class ListsController < ApiController
     lists = List
               .joins(:permissions)
               .where(permissions: { user_id: @current_user.index })
-    render json: lists, include: :contentlists
+    render json: lists.as_json(only: %i[id listname])
   end
 
   def show
     list = List.find(params[:id])
-    authorize!(list)
-    render json: list, include: %i[contentlists permissions]
+    return unless authorize!(list)
+    
+    items = list.contentlists
+              .order(:index)
+              .as_json(only: %i[index content])
+
+    render json: items
   end
 
   #more crud here TODO
@@ -21,7 +26,10 @@ class ListsController < ApiController
   end
 
   def authorize!(list)
-    head :forbidden unless
-      Permission.exists?(list_id: list.id, user_id: @current_user.index)
+    unless Permission.exists?(list_id: list.id, user_id: @current_user.index)
+      head :forbidden
+      return false
+    end
+    true
   end
 end

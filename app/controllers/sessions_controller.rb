@@ -1,12 +1,13 @@
 #inherit from actioncontroller not apicontroller so that we don't run the auth filter
-class SessionsController < ActionController::API
+require 'bcrypt'
+class SessionsController < ApiController
   # skip auth for public routes
   skip_before_action :authenticate!, raise: false
 
   def create
     user = User.find_by(username: params[:username])
   
-    if user && BCrypt::PAssword.new(user.pwhash) == params[:password]
+    if user && BCrypt::Password.new(user.pwhash) == params[:password]
       sid = SecureRandom.base64(32)
       Session.create!(sid: sid, account: user.index)
       user.update!(lastlogin: Time.current) if user.respond_to?(:lastlogin)
@@ -19,7 +20,7 @@ class SessionsController < ActionController::API
         path: '/'
       }
 
-      render json: { success: ':Logged in successfully' }, status :ok
+      render json: { success: ':Logged in successfully' }, status: :ok
     else
       render json: { error: 'Invalid username or password' }, status: :unauthorized
     end
