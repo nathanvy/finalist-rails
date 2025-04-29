@@ -23,7 +23,7 @@ default: &default
 development:
   <<: *default
   database: finalist
-  schema_search_path: 'fnlst, public'
+  schema_search_path: 'public, fnlst'
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -58,7 +58,7 @@ development:
 test:
   <<: *default
   database: finalist
-  schema_search_path: 'fnlst, public'
+  schema_search_path: 'public, fnlst'
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -85,7 +85,7 @@ production:
     database: finalist
     username: rails
     password: <%= ENV["FINALRAILS_DATABASE_PASSWORD"] %>
-    schema_search_path: 'fnlst, public'
+    schema_search_path: 'public, fnlst'
   cache:
     <<: *primary_production
     database: finalist
