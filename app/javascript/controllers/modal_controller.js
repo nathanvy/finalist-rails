@@ -6,7 +6,10 @@ export default class extends Controller {
     open() {
         this.dialogTarget.showModal()
         const input = this.dialogTarget.querySelector("input, textarea, select")
-        if (input) input.focus()
+        if (input) {
+            input.value = ""
+            input.focus()
+        }
     }
 
     close() {
