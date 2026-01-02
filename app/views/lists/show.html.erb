@@ -1,6 +1,4 @@
 <% content_for :nav_title, @list.title %>
-<h1 class="page-title"><%= @list.title %></h1>
-
 <div id="items">
   <%= render partial: "items/item", collection: @items, as: :item, locals: { list: @list } %>
 </div>
