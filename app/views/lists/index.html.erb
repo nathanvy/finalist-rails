@@ -1,0 +1,20 @@
+<div id="lists">
+  <% @lists.each do |list| %>
+    <div class="lineitem" id="<%= dom_id(list) %>">
+      <a class="listlink" href="<%= list_path(list) %>"><%= list.title %></a>
+    </div>
+  <% end %>
+</div>
+
+<div data-controller="modal">
+<%= render partial: "lists/new_list_modal", locals: { list: List.new } %>
+
+  <%= image_tag "add-circle.png",
+        id: "plus-btn",
+        alt: "Add list",
+        role: "button",
+        tabindex: "0",
+        data: {
+          action: "click->modal#open keydown.enter->modal#open keydown.space->modal#open"
+        } %>
+</div>

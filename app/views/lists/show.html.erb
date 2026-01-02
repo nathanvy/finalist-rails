@@ -1,0 +1,18 @@
+<% content_for :nav_title, @list.title %>
+<h1 class="page-title"><%= @list.title %></h1>
+
+<div id="items">
+  <%= render partial: "items/item", collection: @items, as: :item, locals: { list: @list } %>
+</div>
+
+<div data-controller="modal">
+<%= render partial: "items/new_item_modal", locals: { list: @list, item: @item } %>
+
+
+<%= image_tag "add-circle.png",
+      id: "plus-btn",
+      alt: "Add item",
+      role: "button",
+      tabindex: "0",
+      data: { action: "click->modal#open keydown.enter->modal#open keydown.space->modal#open" } %>
+</div>

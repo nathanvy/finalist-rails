@@ -1,0 +1,10 @@
+<div class="lineitem item-row">
+  <%= form_with model: [list, item] do |f| %>
+    <%= f.text_field :body, autofocus: true %>
+    <%= f.submit "Save" %>
+  <% end %>
+
+  <%= link_to "Cancel",
+              list_item_path(list, item),
+              data: { turbo_frame: dom_id(item) } %>
+</div>

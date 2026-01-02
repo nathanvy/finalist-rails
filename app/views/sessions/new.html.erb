@@ -1,0 +1,19 @@
+m<h1>Log in</h1>
+
+<%= form_with url: session_path do %>
+  <div class="lineitem">
+    <p><%= label_tag :username %></p>
+    <%= text_field_tag :username, params[:username], autofocus: true %>
+  </div>
+
+  <div class="lineitem">
+    <p><%= label_tag :password %></p>
+    <%= password_field_tag :password %>
+  </div>
+
+  <div class="lineitem">
+    <%= submit_tag "Log in" %>
+  </div>
+<% end %>
+
+<p><%= link_to "Create an account", new_user_path %></p>

@@ -1,0 +1,35 @@
+<h1>Create account</h1>
+
+<%= form_with model: @user do |f| %>
+  <% if @user.errors.any? %>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :username %>
+    <%= f.text_field :username, autofocus: true %>
+  </div>
+
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= label_tag :signup_token, "Invite key" %>
+    <%= text_field_tag :signup_token, params[:signup_token], required: true, autocomplete: "off" %>
+  </div>
+
+  <%= f.submit "Create account" %>
+<% end %>
+
+<p><%= link_to "Back to login", new_session_path %></p>

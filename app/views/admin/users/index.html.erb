@@ -1,0 +1,36 @@
+<% content_for :nav_title, "Admin users" %>
+
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Admin</th>
+      <th>Disabled</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= link_to u.username, admin_user_path(u) %></td>
+        <td><%= u.admin? ? "yes" : "no" %></td>
+        <td><%= u.disabled? ? "yes" : "no" %></td>
+        <td>
+          <% if u.disabled? %>
+            <%= button_to "Enable", enable_admin_user_path(u), method: :post %>
+          <% else %>
+            <%= button_to "Disable", disable_admin_user_path(u), method: :post, data: { turbo_confirm: "Disable this user?" } %>
+          <% end %>
+
+          <% if u.admin? %>
+            <%= button_to "Remove admin", remove_admin_admin_user_path(u), method: :post, data: { turbo_confirm: "Remove admin privileges?" } %>
+          <% else %>
+            <%= button_to "Make admin", make_admin_admin_user_path(u), method: :post, data: { turbo_confirm: "Grant admin privileges?" } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

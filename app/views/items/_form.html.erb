@@ -1,0 +1,7 @@
+<%= form_with model: [list, item], data: { turbo: true } do |f| %>
+  <div class="lineitem">
+    <p><%= f.label :body, "New item" %></p>
+    <%= f.text_field :body, autofocus: true %>
+    <%= f.submit "Add" %>
+  </div>
+<% end %>

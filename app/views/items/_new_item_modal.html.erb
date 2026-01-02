@@ -1,0 +1,9 @@
+<dialog id="new_item_modal" data-modal-target="dialog">
+  <div class="modal-inner">
+    <div id="new_item_form">
+      <%= render partial: "items/form", locals: { list: list, item: item } %>
+    </div>
+
+    <button type="button" data-action="modal#close" class="modal-cancel">Cancel</button>
+  </div>
+</dialog>

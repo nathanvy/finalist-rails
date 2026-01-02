@@ -1,0 +1,12 @@
+<h1>New list</h1>
+
+<%= form_with model: @list do |f| %>
+  <div class="lineitem">
+    <p><%= f.label :title %></p>
+    <%= f.text_field :title, autofocus: true %>
+  </div>
+
+  <div class="lineitem">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>

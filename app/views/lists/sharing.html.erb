@@ -1,0 +1,44 @@
+<h1>Sharing: <%= @list.title %></h1>
+
+<p><%= link_to "Back to list", list_path(@list) %></p>
+
+<hr>
+
+<h2>Add user</h2>
+
+<%= form_with url: list_memberships_path(@list), method: :post do %>
+  <div class="lineitem">
+    <p><%= label_tag :username, "Username" %></p>
+    <%= text_field_tag :username, "", autofocus: true %>
+    <%= submit_tag "Add (editor)" %>
+  </div>
+<% end %>
+
+<hr>
+
+<h2>Current access</h2>
+
+<div class="lineitem">
+  <p><strong><%= @list.owner.username %></strong></p>
+  <p style="margin-left:auto">owner</p>
+</div>
+
+<% @memberships.each do |m| %>
+  <% next if m.user_id == @list.owner_id %>
+
+  <div class="lineitem">
+    <p><strong><%= m.user.username %></strong></p>
+
+    <div style="margin-left:auto; display:flex; gap:10px; align-items:center;">
+      <%= form_with model: m, url: list_membership_path(@list, m), method: :patch do |f| %>
+        <%= f.select :role, ListMembership.roles.keys %>
+        <%= f.submit "Update" %>
+      <% end %>
+
+      <%= button_to "Remove",
+            list_membership_path(@list, m),
+            method: :delete,
+            data: { turbo_confirm: "Remove access for #{m.user.username}?" } %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<%= turbo_stream.prepend "lists" do %>
+  <div class="lineitem" id="<%= dom_id(@list) %>">
+    <a class="listlink" href="<%= list_path(@list) %>"><%= @list.title %></a>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace "new_list_modal" do %>
+  <%= render partial: "lists/new_list_modal", locals: { list: List.new } %>
+<% end %>
