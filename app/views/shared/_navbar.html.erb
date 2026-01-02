@@ -19,10 +19,14 @@
                 <% list = local_assigns[:list] || @list %>
 
                 <% if list&.persisted? %>
-                    <%= link_to "Remove checked",
-                            clear_completed_list_items_path(list),
-	                            data: { turbo_method: :delete, turbo_confirm: "Delete all checked items?" },
-                            class: "nav-link" %>
+                    <%= link_to "Remove marked",
+                                clear_completed_list_items_path(list),
+	                        data: {
+                                    turbo_method: :delete,
+                                    turbo_confirm: "Delete all marked items?",
+                                    close_menu_on_confirm: true
+                                },
+                                class: "nav-link" %>
 
                     <%= link_to "Sharing", sharing_list_path(list), class: "nav-link" %>
                     <%= link_to "Delete list",
@@ -57,9 +61,13 @@
 
             <% if list&.persisted? %>
                 <%= link_to "Sharing", sharing_list_path(list), class: "nav-link" %>
-                <%= link_to "Remove checked",
+                <%= link_to "Remove marked",
                             clear_completed_list_items_path(list),
-	                            data: { turbo_method: :delete, turbo_confirm: "Delete all checked items?" },
+	                    data: {
+                                turbo_method: :delete,
+                                turbo_confirm: "Delete all marked items?",
+                                close_menu_on_confirm: true
+                            },
                             class: "nav-link" %>
                 <%= link_to "Delete list",
                             list_path(list),
