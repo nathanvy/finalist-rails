@@ -1,7 +1,7 @@
 <%= form_with model: list do |f| %>
   <div class="lineitem">
-    <p><%= f.label :title, "New list" %></p>
-    <%= f.text_field :title, autofocus: true %>
+    <p><%= f.label :title, "New list", for: "new_list_title"  %></p>
+    <%= f.text_field :title, autofocus: true, id: "new_list_title" %>
     <%= f.submit "Create" %>
   </div>
 <% end %>

@@ -1,6 +1,6 @@
 <div class="lineitem item-row">
   <%= form_with model: [list, item] do |f| %>
-    <%= f.text_field :body, autofocus: true %>
+    <%= f.text_field :body, id: dom_id(item, :body), autofocus: true %>
     <%= f.submit "Save" %>
   <% end %>
 
