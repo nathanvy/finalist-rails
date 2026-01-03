@@ -31,13 +31,13 @@ class Admin::UsersController < Admin::BaseController
     redirect_to admin_users_path
   end
 
-  # v1: set a temporary password and show it once.
-  # Better later: email-based reset flow.
-  def reset_password
-    @user = User.find(params[:id])
-    @temp_password = SecureRandom.base64(12)
-    @user.update!(password: @temp_password, password_confirmation: @temp_password)
+  def set_password
+    user = User.find(params[:id])
+    new_password = params[:new_password].to_s
 
-    render :show
+    user.update!(password: new_password, password_confirmation: new_password)
+    redirect_to admin_user_path(user), notice: "Password updated."
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to admin_user_path(user), alert: e.record.errors.full_messages.first
   end
 end

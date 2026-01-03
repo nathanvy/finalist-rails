@@ -7,15 +7,16 @@
   <li>Disabled: <%= @user.disabled? ? "yes" : "no" %></li>
 </ul>
 
-<% if defined?(@temp_password) && @temp_password.present? %>
-  <div class="errormsg">
-    <p>Temporary password for <strong><%= @user.username %></strong>: <code><%= @temp_password %></code></p>
-    <p>This is shown once. Ask the user to log in and change it.</p>
-  </div>
-<% end %>
+<%= form_with url: set_password_admin_user_path(@user), method: :post do %>
+    <div class="lineitem">
+      <p><%= label_tag :new_password, "New password" %></p>
+      <%= password_field_tag :new_password, nil, autocomplete: "new-password" %>
+    </div>
 
-<div>
-  <%= button_to "Reset password", reset_password_admin_user_path(@user), method: :post, data: { turbo_confirm: "Reset password and generate a temporary one?" } %>
+    <div class="lineitem">
+      <%= submit_tag "Set password", data: { turbo_confirm: "Set a new password for this user?" } %>
+    </div>
+  <% end %>
 </div>
 
 <div>

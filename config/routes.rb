@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [ :index, :show ] do
       member do
-        post :reset_password
+        post :set_password
         post :disable
         post :enable
         post :make_admin
