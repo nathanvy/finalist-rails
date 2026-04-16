@@ -4,7 +4,8 @@
     <%= f.submit "Save" %>
   <% end %>
 
-  <%= link_to "Cancel",
-              list_item_path(list, item),
-              data: { turbo_frame: dom_id(item) } %>
+  <%= button_to "Cancel",
+               list_item_path(list, item),
+               method: :get,
+               data: { turbo_frame: dom_id(item) } %>
 </div>
