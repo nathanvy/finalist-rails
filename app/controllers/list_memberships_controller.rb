@@ -1,7 +1,7 @@
 class ListMembershipsController < ApplicationController
   before_action :require_login!
   before_action :set_list
-  before_action :require_list_edit!
+  before_action :require_list_owner!
 
   def create
     username = params[:username].to_s.strip
@@ -41,8 +41,8 @@ class ListMembershipsController < ApplicationController
     @list = List.find(params[:list_id])
   end
 
-  def require_list_edit!
-    return if @list.editable_by?(current_user)
-    redirect_to list_path(@list), alert: "Read-only access"
+  def require_list_owner!
+    return if @list.owner_id == current_user.id
+    redirect_to list_path(@list), alert: "Only the list owner can do that."
   end
 end

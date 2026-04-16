@@ -2,7 +2,8 @@ class ListsController < ApplicationController
   before_action :require_login!
   before_action :set_list, only: [ :show, :destroy, :sharing ]
   before_action :require_list_view!, only: [ :show ]
-  before_action :require_list_edit!, only: [ :destroy, :sharing ]
+  before_action :require_list_edit!, only: [ :sharing ]
+  before_action :require_list_owner!, only: [ :destroy ]
   
   def index
     @lists = List
@@ -77,5 +78,10 @@ class ListsController < ApplicationController
   def require_list_edit!
     return if @list.editable_by?(current_user)
     redirect_to list_path(@list), alert: "Read-only access"
+  end
+
+  def require_list_owner!
+    return if @list.owner_id == current_user.id
+    redirect_to list_path(@list), alert: "Only the list owner can do that."
   end
 end
