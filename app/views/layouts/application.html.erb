@@ -30,6 +30,9 @@
     <% end %>
     <%= render "shared/navbar" %>
 
+    <% if flash[:notice].present? %>
+      <div class="noticemsg"><p><%= flash[:notice] %></p></div>
+    <% end %>
     <% if flash[:alert].present? %>
       <div class="errormsg"><p><%= flash[:alert] %></p></div>
     <% end %>

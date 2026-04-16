@@ -17,10 +17,7 @@ class Admin::SignupTokensController < Admin::BaseController
     ))
 
     if @token.save
-      # Show the raw token once.
-      flash.now[:alert] = "Invite key: #{raw_token}"
-      @tokens = SignupToken.order(created_at: :desc)
-      render :index
+      redirect_to admin_signup_tokens_path, notice: "Invite key: #{raw_token}"
     else
       flash.now[:alert] = @token.errors.full_messages.first
       render :new, status: :unprocessable_entity
