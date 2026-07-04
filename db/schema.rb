@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_30_221423) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_03_235717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -20,11 +20,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_221423) do
     t.boolean "completed"
     t.datetime "completed_at"
     t.datetime "created_at", null: false
-    t.bigint "created_by_id"
     t.bigint "list_id", null: false
     t.integer "position"
     t.datetime "updated_at", null: false
-    t.index ["created_by_id"], name: "index_items_on_created_by_id"
     t.index ["list_id"], name: "index_items_on_list_id"
   end
 
@@ -74,7 +72,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_221423) do
   end
 
   add_foreign_key "items", "lists"
-  add_foreign_key "items", "users", column: "created_by_id"
   add_foreign_key "list_memberships", "lists"
   add_foreign_key "list_memberships", "users"
   add_foreign_key "lists", "users", column: "owner_id"

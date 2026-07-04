@@ -90,7 +90,8 @@ body {
     margin: 1rem 0;
 }
 
-#main div.lineitem:nth-child(even){
+#lists > .lineitem:nth-child(even),
+#items > turbo-frame:nth-child(even) > .lineitem.item-row {
     background-color: #f5f5f5;
 }
 

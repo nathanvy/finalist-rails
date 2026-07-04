@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "/about", to: "pages#about"
 
   resource :session, only: [ :new, :create, :destroy ]
+  resource :settings, only: [ :show, :update ]
   resources :users, only: [ :new, :create ]
 
   resources :lists do
