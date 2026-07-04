@@ -1,0 +1,24 @@
+<% content_for :nav_title, "Settings" %>
+
+<h1>Settings</h1>
+
+<%= form_with model: current_user, url: settings_path, method: :patch do |f| %>
+  <div class="lineitem">
+    <p><%= f.label :current_password, "Current password" %></p>
+    <%= f.password_field :current_password, autocomplete: "current-password", autofocus: true %>
+  </div>
+
+  <div class="lineitem">
+    <p><%= f.label :password, "New password" %></p>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="lineitem">
+    <p><%= f.label :password_confirmation, "Confirm new password" %></p>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="lineitem">
+    <%= f.submit "Change password" %>
+  </div>
+<% end %>

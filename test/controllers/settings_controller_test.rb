@@ -74,7 +74,7 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     assert_equal old_digest, @user.reload.password_digest
-    assert_match "New password can't be blank.", response.body
+    assert_select ".errormsg p", text: "New password can't be blank."
   end
 
   test "does not change password when confirmation does not match" do
