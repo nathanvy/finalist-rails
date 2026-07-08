@@ -28,6 +28,8 @@ class ApplicationController < ActionController::Base
 
   def require_admin!
     require_login!
+    return if performed?
+
     head :forbidden unless current_user&.admin?
   end
 end
