@@ -7,17 +7,21 @@
   <li>Disabled: <%= @user.disabled? ? "yes" : "no" %></li>
 </ul>
 
-<%= form_with url: set_password_admin_user_path(@user), method: :post do %>
-    <div class="lineitem">
-      <p><%= label_tag :new_password, "New password" %></p>
-      <%= password_field_tag :new_password, nil, autocomplete: "new-password" %>
-    </div>
+<%= form_with model: @user, url: set_password_admin_user_path(@user), method: :post do |f| %>
+  <div class="lineitem">
+    <p><%= f.label :password, "New password" %></p>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
 
-    <div class="lineitem">
-      <%= submit_tag "Set password", data: { turbo_confirm: "Set a new password for this user?" } %>
-    </div>
-  <% end %>
-</div>
+  <div class="lineitem">
+    <p><%= f.label :password_confirmation, "Confirm new password" %></p>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="lineitem">
+    <%= f.submit "Set password", data: { turbo_confirm: "Set a new password for this user?" } %>
+  </div>
+<% end %>
 
 <div>
   <% if @user.disabled? %>
